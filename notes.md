@@ -3,7 +3,6 @@
 * test command: 
     * sudo masscan --rate 10000 -v -n -Pn -sS -p1-65535 -iL IPAddresses.txt -e eth0 >> TCP.log
 
-
 ## local.sh
 ### TODO
 * setup
@@ -35,6 +34,7 @@
     * output confirmation check (Continue? Y/n)
     * start each scan sequentially before sleeping
         * find way to start remote commands without blocking
+            * use & ?
     * SCP/copy over IP address list name IPAddresses.txt
 * sleep until scans are finished
     * sleep until results are SCP'd back?
@@ -56,7 +56,11 @@
 
 ## remote.sh
 ### TODO
-* take parameters for packets per second(PPS) and RBU name
+* take parameters for packets per second(PPS), RBU name, and IPLIST
+    * ~~add standalone parameter~~
+* enable script to be run standalone or by local.sh
+    * include local.sh defensive checks
+* write usage()
 * create directory structure
     * check that directory does not currently exist
         * add timestamp to directory name?
@@ -80,7 +84,10 @@
     * use parser.jar?
     * use awk/cut
     * output filename ParsedUDP_BOXNAME_hh:mm:ss.txt
-
+* send results back
+    * check for standalone
+        * if standalone, don't send results back
+    * SCP results back
 
 
 
