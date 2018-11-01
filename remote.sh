@@ -56,11 +56,11 @@ function usage() {
     echo -e $BLUE"This script performs a 65535 port scan of a provided list of IPs via masscan. In normal mode, it will SCP the results back to"
     echo -e "the local.sh machine. In standalone mode, it will perform the scan, parse the output, and leave it on this machine."
     echo -e "The outputs and directory structures are as follows:\n"
-    echo -e $GREEN"remote attackboxes\n$ORANGE\tengagements/\n\t\tSegmentation_Scan_RBUName_Year_Month/"
+    echo -e $GREEN"remote attack boxes\n$ORANGE\tengagements/\n\t\tSegmentation_Scan_RBUName_Year_Month/"
     echo -e "\t\t\tParsedTCP_ATTACKBOX_hh:mm:ss.txt\n\t\t\tParsedUDP_ATTACKBOX_hh:mm:ss.txt"
     echo -e "\t\t\tTCP_hh:mm:ss.log\n\t\t\tUDP_hh:mm:ss.log\n"
     echo -e $GREEN"The masscan command used on the remote machines:"
-    echo -e $BLUE"masscan --rate 10000 -v -n -Pn -sS -p1-65535 -iL IPAddresses.txt "
+    echo -e $BLUE"masscan --rate 10000 -v -n -Pn -sS -p1-65535 -iL \$IPLIST"
     echo -e $GREEN"\nFor more information on masscan, see$ORANGE https://github.com/robertdavidgraham/masscan\n"
     echo -e $RED"WARNING: MASSCAN CAN SEND A VERY LARGE AMOUNT OF TRAFFIC AND KNOCK BOXES OVER. PLEASE CHOOSE YOUR PPS VALUE WITH CARE!"$NC
 }
@@ -68,6 +68,7 @@ function usage() {
 # Check for correct number of parameters
 if [ "$#" -lt 3 ]; then
     echo -e $RED"[!] Wrong number of parameters! See usage below.\n"$NC;
+    sleep 1.5;
     usage;
     exit 1;
 fi
@@ -85,6 +86,7 @@ RBU=${RBU// /_}
 re='^[0-9]+$'
 if ! [[ $PPS =~ $re ]] ; then
     echo -e $RED"[!] The packets per second parameter must be a whole number!"$NC;
+    sleep 1.5;
     usage;
    exit 1;
 fi
@@ -92,15 +94,15 @@ fi
 # Check that IPLIST file exists
 if [ ! -f $3 ]; then
     echo -e $RED"[!] The IP list file provided does not exist!\n"$NC;
+    sleep 1.5;
     usage;
     exit 1;
 fi
-
+# REMOVE WHEN DONE
 echo "Risk Business Unit is $RBU"
 echo "Packets per second is $PPS"
 echo "IP list file is echo $IPLIST"
 echo "standalone $STANDALONE"
-
 
 # Create local directory for scan results. Reuse old directory if possible
 ENGAGEMENTS="/root/engagements/"
@@ -108,9 +110,31 @@ WORKINGDIR="Segmentation_Scan_${RBU}_$(date +%Y)_$(date +%m)"
 
 if [ ! -d "${ENGAGEMENTS}${WORKINGDIR}" ]; then
     echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
-    sleep 1;
+    sleep 0.7;
     mkdir -p ${ENGAGEMENTS}${WORKINGDIR};
 else
     echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
-    sleep 1;
+    sleep 0.7;
 fi
+
+# CHANGE ME WHEN DONE
+MASSCANTCP="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0"
+MASSCANUDP="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0"
+
+# Perform TCP scan
+echo -e "$GREEN[*] ${ORANGE}Beginning TCP scan.$NC";
+sleep 0.7;
+echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANTCP.$GREEN";
+sleep 0.7;
+$MASSCANTCP;
+echo -e "$GREEN[*] ${ORANGE}TCP scan complete!$NC";
+sleep 1;
+
+# Perform UDP scan
+echo -e "$GREEN[*] ${ORANGE}Beginning UDP scan.$NC";
+sleep 0.7;
+echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANUDP.$GREEN";
+sleep 0.7;
+$MASSCANUDP;
+echo -e "$GREEN[*] ${ORANGE}UDP scan complete!$NC";
+sleep 1;

@@ -48,25 +48,25 @@
     * have remote.sh monitor the status of the masscan scan
     * check return value of masscan
         * if it fails, SCP a failure file back to local machine
+            * have file contain error message from masscan, if possible
+            * echo out error and quit
         * if success, parse and SCP results back
         * have local.sh sleep, waking up to check for files
     * write to file on remote machine with update?
     * start screen session on remote machine so we can verify manually?
-* binary/hex easter egg with message at the end of the scan
 
 ## remote.sh
 ### TODO
 * ~~take parameters for packets per second(PPS), RBU name, and IPLIST~~
     * ~~add standalone parameter~~
-* enable script to be run standalone or by local.sh
-    * include local.sh defensive checks
+* ~~enable script to be run standalone or by local.sh~~
+    * ~~include local.sh defensive checks~~
 * ~~write usage()~~
-* create directory structure
-    * check that directory does not currently exist
-        * add timestamp to directory name?
-    * under engagements directory(?)
-        * Segmentation_Scan_RBUName_Year_Month
-        * Segmentation_Scan_RBUName_Year_Month
+* ~~create directory structure~~
+    * ~~check that directory does not currently exist~~
+        * ~~add timestamp to directory name~~
+    * ~~under /root/engagements directory~~
+        * ~~Segmentation_Scan_RBUName_Year_Month~~
 * look into various masscan flags/optimizations
 * kick off TCP scan
     * optional check for dangerous subnets
@@ -77,11 +77,11 @@
     * optional latency check (via ping?) to select best PPS
     * output results as UDP_hh:mm:ss.log
 * parse TCP results
-    * use parser.jar?
+    * use parser.jar
     * use awk/cut
     * output filename ParsedTCP_BOXNAME_hh:mm:ss.txt
 * parse UDP results
-    * use parser.jar?
+    * use parser.jar
     * use awk/cut
     * output filename ParsedUDP_BOXNAME_hh:mm:ss.txt
 * send results back
@@ -124,36 +124,4 @@ _\ \ (_| (_| | | | | | | |  __/ |
 _\ \  __/ (_| | | | | | |  __/ | | | || (_| | |_| | (_) | | | | _\ \ (_| (_| | | | | | | |  __/ |   
 \__/\___|\__, |_| |_| |_|\___|_| |_|\__\__,_|\__|_|\___/|_| |_| \__/\___\__,_|_| |_|_| |_|\___|_|   
          |___/                                                                                      
-```
-
-
-```
-================================================================================
-================================================================================
-================================================================================
-==========7 7====I77+===+77+====7 7====I 7======================================
-=========I77 7==?7   === 77 ?==7777I==I7  7=====================================
-=========+ 77I=== 777===7777===I  7+==+  7I=====================================
-================================================================================
-================================================================================
-================================================================================
-========+7 7 7                  7======777=========I                     77?====
-=======7 77                     7====== 7 +=======   7                   77?====
-=====+7  77+===========================   +======7777+==========================
-===== 777==============================   +=====+  7============================
-====?7 7===============================   +====== 77+===========================
-====7  I===============================   +======77  I+=========================
-====7  ?==7                7===========   +=======7777                    I=====
-====7  ?==?                ?===========   +=========I7                   777====
-====7  ?===============================   +=============================?   I===
-====7  ?===============================   +==============================7   ===
-====7  ?===============================   +=============================+   7===
-====7  ?===============================   +=======I7777777777777777777777777====
-====7 7?===============================  7+======+7                      77=====
-=====77================================+ 7========7                    7I=======
-================================================================================
-================================================================================
-================================================================================
-================================================================================
-================================================================================
 ```

@@ -58,7 +58,7 @@ function usage() {
     echo -e "by invoking the remote.sh script on each attack box. The results are then parsed on the attack box"
     echo -e "and sent via SCP back to the local machine. The outputs and directory structures are as follows:\n"
     echo -e $GREEN"local machine\n$ORANGE\tSegmentation_Scan_RBUName_Year_Month/\n\t\tParsedTCP_ATTACKBOX_hh:mm:ss.txt\n\t\tParsedUDP_ATTACKBOX_hh:mm:ss.txt"
-    echo -e $GREEN"remote attackboxes\n$ORANGE\tengagements/\n\t\tSegmentation_Scan_RBUName_Year_Month/"
+    echo -e $GREEN"remote attack boxes\n$ORANGE\tengagements/\n\t\tSegmentation_Scan_RBUName_Year_Month/"
     echo -e "\t\t\tParsedTCP_ATTACKBOX_hh:mm:ss.txt\n\t\t\tParsedUDP_ATTACKBOX_hh:mm:ss.txt"
     echo -e "\t\t\tTCP_hh:mm:ss.log\n\t\t\tUDP_hh:mm:ss.log\n"
     echo -e $GREEN"The masscan command used on the remote machines:"
@@ -106,9 +106,9 @@ WORKINGDIR="Segmentation_Scan_${RBU}_$(date +%Y)_$(date +%m)"
 
 if [ ! -d "$WORKINGDIR" ]; then
     echo -e "$GREEN[*] ${ORANGE}The working directory is ${WORKINGDIR}. It does not exist, so it is being created.$NC";
-    sleep 1;
+    sleep 0.5;
     mkdir -p $WORKINGDIR;
 else
     echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
-    sleep 1;
+    sleep 0.5;
 fi
