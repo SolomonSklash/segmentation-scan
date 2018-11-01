@@ -22,15 +22,12 @@ echo -en $GREEN "
 |_|  |___|___/  |_|    |_|    |_|    
 "
 echo -en $BLUE"
- __                                 _        _   _              
-/ _\ ___  __ _ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __   
-\ \ / _ \/ _\` | '_ \` _ \ / _ \ '_ \| __/ _\` | __| |/ _ \| '_ \  
-_\ \  __/ (_| | | | | | |  __/ | | | || (_| | |_| | (_) | | | | 
-\__/\___|\__, |_| |_| |_|\___|_| |_|\__\__,_|\__|_|\___/|_| |_| 
-/ _\ ___ |___/_ __  _ __   ___ _ __                             
-\ \ / __/ _\` | '_ \| '_ \ / _ \ '__|                            
-_\ \ (_| (_| | | | | | | |  __/ |                               
-\__/\___\__,_|_| |_|_| |_|\___|_|  
+ __            __                                 
+/ _\ ___  __ _/ _\ ___ __ _ _ __  _ __   ___ _ __ 
+\ \ / _ \/ _\` \ \ / __/ _\` | '_ \| '_ \ / _ \ '__|
+_\ \  __/ (_| |\ \ (_| (_| | | | | | | |  __/ |   
+\__/\___|\__, \__/\___\__,_|_| |_|_| |_|\___|_|   
+         |___/                                   
 "$NC
 
 echo -e $RED"
@@ -134,7 +131,7 @@ MASSCANUDPPATH="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0 --outp
 # Perform TCP scan
 echo -e "$GREEN[*] ${ORANGE}Beginning TCP scan.$NC";
 sleep 0.7;
-echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANTCP.";
+echo -e "$GREEN[*] ${ORANGE}The following masscan command will be used: $BLUE $MASSCANTCP.";
 sleep 0.7;
 echo -e "$GREEN[*] ${ORANGE}Log file can be found here: ${ENGAGEMENTS}${WORKINGDIR}/${TCPLOG}.$GREEN";
 sleep 0.7;
@@ -145,7 +142,7 @@ sleep 1;
 # Perform UDP scan
 echo -e "$GREEN[*] ${ORANGE}Beginning UDP scan.$NC";
 sleep 0.7;
-echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANUDP.";
+echo -e "$GREEN[*] ${ORANGE}The following masscan command will be used: $BLUE $MASSCANUDP.";
 sleep 0.7;
 echo -e "$GREEN[*] ${ORANGE}Log file can be found here: ${ENGAGEMENTS}${WORKINGDIR}/${UDPLOG}.$GREEN";
 sleep 0.7;
