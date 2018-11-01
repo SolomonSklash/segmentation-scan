@@ -62,7 +62,7 @@ function usage() {
     echo -e $GREEN"The masscan command used on the remote machines:"
     echo -e $BLUE"masscan --rate 10000 -v -n -Pn -sS -p1-65535 -iL IPAddresses.txt "
     echo -e $GREEN"\nFor more information on masscan, see$ORANGE https://github.com/robertdavidgraham/masscan\n"
-    echo -e $RED"WARNING: MASSCAN CAN SEND A VERY LARGE AMOUNT OF TRAFFIC. PLEASE CHOOSE YOUR PPS VALUE WITH CARE!"$NC
+    echo -e $RED"WARNING: MASSCAN CAN SEND A VERY LARGE AMOUNT OF TRAFFIC AND KNOCK BOXES OVER. PLEASE CHOOSE YOUR PPS VALUE WITH CARE!"$NC
 }
 
 # Check for correct number of parameters
@@ -77,6 +77,9 @@ RBU=$1
 PPS=$2
 IPLIST=$3
 STANDALONE=$4
+
+# Change spaces to underscores
+RBU=${RBU// /_}
 
 # Use regex to make sure PPS is a whole number
 re='^[0-9]+$'
@@ -97,3 +100,17 @@ echo "Risk Business Unit is $RBU"
 echo "Packets per second is $PPS"
 echo "IP list file is echo $IPLIST"
 echo "standalone $STANDALONE"
+
+
+# Create local directory for scan results. Reuse old directory if possible
+ENGAGEMENTS="/root/engagements/"
+WORKINGDIR="Segmentation_Scan_${RBU}_$(date +%Y)_$(date +%m)"
+
+if [ ! -d "${ENGAGEMENTS}${WORKINGDIR}" ]; then
+    echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
+    sleep 1;
+    mkdir -p ${ENGAGEMENTS}${WORKINGDIR};
+else
+    echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
+    sleep 1;
+fi

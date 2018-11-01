@@ -56,11 +56,11 @@
 
 ## remote.sh
 ### TODO
-* take parameters for packets per second(PPS), RBU name, and IPLIST
+* ~~take parameters for packets per second(PPS), RBU name, and IPLIST~~
     * ~~add standalone parameter~~
 * enable script to be run standalone or by local.sh
     * include local.sh defensive checks
-* write usage()
+* ~~write usage()~~
 * create directory structure
     * check that directory does not currently exist
         * add timestamp to directory name?
