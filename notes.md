@@ -72,15 +72,18 @@
     * optional check for dangerous subnets
     * optional latency check (via ping?) to select best PPS
     * output results as TCP_hh:mm:ss.log
+    * indicate where logs will be stored
 * kick off UDP scan
     * optional check for dangerous subnets
     * optional latency check (via ping?) to select best PPS
     * output results as UDP_hh:mm:ss.log
 * parse TCP results
+    * account for results being empty
     * use parser.jar
     * use awk/cut
     * output filename ParsedTCP_BOXNAME_hh:mm:ss.txt
 * parse UDP results
+    * account for results being empty
     * use parser.jar
     * use awk/cut
     * output filename ParsedUDP_BOXNAME_hh:mm:ss.txt

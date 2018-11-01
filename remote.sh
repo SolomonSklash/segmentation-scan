@@ -98,6 +98,7 @@ if [ ! -f $3 ]; then
     usage;
     exit 1;
 fi
+
 # REMOVE WHEN DONE
 echo "Risk Business Unit is $RBU"
 echo "Packets per second is $PPS"
@@ -117,24 +118,37 @@ else
     sleep 0.7;
 fi
 
-# CHANGE ME WHEN DONE
-MASSCANTCP="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0"
-MASSCANUDP="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0"
+# Create output file names for logs
+TCPLOG="TCP_$(date +%H:%M:%S).log"
+echo "TCPLOG is $TCPLOG"
+UDPLOG="UDP_$(date +%H:%M:%S).log"
+echo "UDPLOG is $UDPLOG"
+
+# Create masscan commands
+# CHANGE ME TO FIS COMMANDS WHEN DONE
+MASSCANTCP="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename $TCPLOG"
+MASSCANUDP="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename $UDPLOG"
+MASSCANTCPPATH="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename ${ENGAGEMENTS}${WORKINGDIR}/${TCPLOG}"
+MASSCANUDPPATH="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename ${ENGAGEMENTS}${WORKINGDIR}/${UDPLOG}"
 
 # Perform TCP scan
 echo -e "$GREEN[*] ${ORANGE}Beginning TCP scan.$NC";
 sleep 0.7;
-echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANTCP.$GREEN";
+echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANTCP.";
 sleep 0.7;
-$MASSCANTCP
+echo -e "$GREEN[*] ${ORANGE}Log file can be found here: ${ENGAGEMENTS}${WORKINGDIR}/${TCPLOG}.$GREEN";
+sleep 0.7;
+$MASSCANTCPPATH
 echo -e "$GREEN[*] ${ORANGE}TCP scan complete!$NC";
 sleep 1;
 
 # Perform UDP scan
 echo -e "$GREEN[*] ${ORANGE}Beginning UDP scan.$NC";
 sleep 0.7;
-echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANUDP.$GREEN";
+echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANUDP.";
 sleep 0.7;
-$MASSCANUDP
+echo -e "$GREEN[*] ${ORANGE}Log file can be found here: ${ENGAGEMENTS}${WORKINGDIR}/${UDPLOG}.$GREEN";
+sleep 0.7;
+$MASSCANUDPPATH
 echo -e "$GREEN[*] ${ORANGE}UDP scan complete!$NC";
 sleep 1;
