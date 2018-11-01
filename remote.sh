@@ -126,7 +126,7 @@ echo -e "$GREEN[*] ${ORANGE}Beginning TCP scan.$NC";
 sleep 0.7;
 echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANTCP.$GREEN";
 sleep 0.7;
-$MASSCANTCP;
+$MASSCANTCP
 echo -e "$GREEN[*] ${ORANGE}TCP scan complete!$NC";
 sleep 1;
 
@@ -135,6 +135,6 @@ echo -e "$GREEN[*] ${ORANGE}Beginning UDP scan.$NC";
 sleep 0.7;
 echo -e "$GREEN[*] ${ORANGE}Using the following masscan command:$BLUE $MASSCANUDP.$GREEN";
 sleep 0.7;
-$MASSCANUDP;
+$MASSCANUDP
 echo -e "$GREEN[*] ${ORANGE}UDP scan complete!$NC";
 sleep 1;
