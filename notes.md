@@ -67,26 +67,29 @@
         * ~~add timestamp to directory name~~
     * ~~under /root/engagements directory~~
         * ~~Segmentation_Scan_RBUName_Year_Month~~
-* look into various masscan flags/optimizations
+* ~~look into various masscan flags/optimizations~~
 * kick off TCP scan
-    * optional check for dangerous subnets
-    * optional latency check (via ping?) to select best PPS
-    * output results as TCP_hh:mm:ss.log
-    * indicate where logs will be stored
+    * optional check for dangerous subnets (v2)
+    * optional latency check (via ping?) to select best PPS (v2)
+    * ~~output results as TCP_hh:mm:ss.log~~
+    * ~~indicate where logs will be stored~~
 * kick off UDP scan
-    * optional check for dangerous subnets
-    * optional latency check (via ping?) to select best PPS
-    * output results as UDP_hh:mm:ss.log
+    * optional check for dangerous subnets (v2)
+    * optional latency check (via ping?) to select best PPS (v2)
+    * ~~output results as UDP_hh:mm:ss.log~~
+    * ~~indicate where logs will be stored~~
 * parse TCP results
     * account for results being empty
     * use parser.jar
     * use awk/cut
     * output filename ParsedTCP_BOXNAME_hh:mm:ss.txt
+    * write function for parsing
 * parse UDP results
     * account for results being empty
     * use parser.jar
     * use awk/cut
     * output filename ParsedUDP_BOXNAME_hh:mm:ss.txt
+    * write function for parsing
 * send results back
     * check for standalone
         * if standalone, don't send results back
@@ -105,33 +108,10 @@
 |_|  |___|___/  |_|    |_|    |_|    
 ```           
 ```
- __            __                 
-/ _\ ___  __ _/ _\ ___ __ _ _ __  
-\ \ / _ \/ _` \ \ / __/ _` | '_ \ 
-_\ \  __/ (_| |\ \ (_| (_| | | | |
-\__/\___|\__, \__/\___\__,_|_| |_|
-         |___/                    
-```
-
-```
- __                                 _        _   _              
-/ _\ ___  __ _ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __   
-\ \ / _ \/ _\` | '_ \` _ \ / _ \ '_ \| __/ _\` | __| |/ _ \| '_ \  
-_\ \  __/ (_| | | | | | |  __/ | | | || (_| | |_| | (_) | | | | 
-\__/\___|\__, |_| |_| |_|\___|_| |_|\__\__,_|\__|_|\___/|_| |_| 
-/ _\ ___ |___/_ __  _ __   ___ _ __                             
-\ \ / __/ _\` | '_ \| '_ \ / _ \ '__|                            
-_\ \ (_| (_| | | | | | | |  __/ |                               
-\__/\___\__,_|_| |_|_| |_|\___|_|                               
-```                                                             
-
-
-
-```
- __                                 _        _   _               __                                 
-/ _\ ___  __ _ _ __ ___   ___ _ __ | |_ __ _| |_(_) ___  _ __   / _\ ___ __ _ _ __  _ __   ___ _ __ 
-\ \ / _ \/ _` | '_ ` _ \ / _ \ '_ \| __/ _` | __| |/ _ \| '_ \  \ \ / __/ _` | '_ \| '_ \ / _ \ '__|
-_\ \  __/ (_| | | | | | |  __/ | | | || (_| | |_| | (_) | | | | _\ \ (_| (_| | | | | | | |  __/ |   
-\__/\___|\__, |_| |_| |_|\___|_| |_|\__\__,_|\__|_|\___/|_| |_| \__/\___\__,_|_| |_|_| |_|\___|_|   
-         |___/                                                                                      
+ __            __                                 
+/ _\ ___  __ _/ _\ ___ __ _ _ __  _ __   ___ _ __ 
+\ \ / _ \/ _\` \ \ / __/ _\` | '_ \| '_ \ / _ \ '__|
+_\ \  __/ (_| |\ \ (_| (_| | | | | | | |  __/ |   
+\__/\___|\__, \__/\___\__,_|_| |_|_| |_|\___|_|   
+         |___/                                   
 ```
