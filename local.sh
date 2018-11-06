@@ -109,3 +109,10 @@ else
     echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
     sleep 0.5;
 fi
+
+# Kick off scans via SSH
+for host in $(cat hosts); do
+    ssh -t $host "ip addr" & 
+done
+sleep 2;
+echo -e "$GREEN[*] ${ORANGE}Done running remote commands!.$NC";

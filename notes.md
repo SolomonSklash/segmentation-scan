@@ -32,10 +32,10 @@
     * ~~check if it exists~~
 * kick off scans on remote boxes
     * output confirmation check (Continue? Y/n)
+    *  SCP/copy over IP address list name IPAddresses.txt
     * start each scan sequentially before sleeping
         * find way to start remote commands without blocking
             * use & ?
-    * SCP/copy over IP address list name IPAddresses.txt
 * sleep until scans are finished
     * sleep until results are SCP'd back?
     * sleep for x, then loop to check for completed results?
