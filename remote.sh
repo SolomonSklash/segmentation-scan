@@ -30,7 +30,7 @@ _\ \  __/ (_| |\ \ (_| (_| | | | | | | |  __/ |
          |___/                                   
 "$NC
 
-echo -en $RED"
+echo -e $RED"
  _ __ ___ _ __ ___   ___ | |_ ___       ___| |__  
 | '__/ _ \ '_ \` _ \ / _ \| __/ _ \     / __| '_ \ 
 | | |  __/ | | | | | (_) | ||  __/  _  \__ \ | | |
@@ -95,12 +95,6 @@ if [ ! -f $3 ]; then
     usage;
     exit 1;
 fi
-
-# REMOVE WHEN DONE
-echo "Risk Business Unit is $RBU"
-echo "Packets per second is $PPS"
-echo "IP list file is echo $IPLIST"
-echo "standalone $STANDALONE"
 
 # Create local directory for scan results. Reuse old directory if possible
 ENGAGEMENTS="/root/engagements/"

@@ -94,6 +94,9 @@
         * if standalone, don't send results back
     * SCP results back
 
+## Version 2
+* Python?
+    * Maybe [Fabric](https://www.fabfile.org/)
 
 
 ```

@@ -102,18 +102,18 @@ echo "IP list file is echo $IPLIST"
 ENGAGEMENTS="/root/engagements/"
 WORKINGDIR="Segmentation_Scan_local_${RBU}_$(date +%Y)_$(date +%m)"
 
-if [ ! -d "$WORKINGDIR" ]; then
+if [ ! -d "${ENGAGEMENTS}${WORKINGDIR}" ]; then
     echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
     sleep 0.7;
     mkdir -p ${ENGAGEMENTS}${WORKINGDIR};
 else
-    echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
+    echo -e "$GREEN[*] ${ORANGE}The working directory ${ENGAGEMENTS}${WORKINGDIR} already exists and will be reused.$NC";
     sleep 0.7;
 fi
 
 # Kick off scans via SSH
 for host in $(cat hosts); do
-    ssh -t $host "ip addr"
+    ssh -t $host "./remote.sh $RBU $PPS ~/IPList.txt"
 done
 sleep 2;
 echo -e "$GREEN[*] ${ORANGE}Done running remote commands!$NC";
