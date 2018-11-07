@@ -99,20 +99,22 @@ echo "Packets per second is $PPS"
 echo "IP list file is echo $IPLIST"
 
 # Create local directory for scan results. Reuse old directory if possible
-WORKINGDIR="Segmentation_Scan_${RBU}_$(date +%Y)_$(date +%m)"
+ENGAGEMENTS="/root/engagements/"
+WORKINGDIR="Segmentation_Scan_local_${RBU}_$(date +%Y)_$(date +%m)"
 
 if [ ! -d "$WORKINGDIR" ]; then
-    echo -e "$GREEN[*] ${ORANGE}The working directory is ${WORKINGDIR}. It does not exist, so it is being created.$NC";
-    sleep 0.5;
-    mkdir -p $WORKINGDIR;
+    echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
+    sleep 0.7;
+    mkdir -p ${ENGAGEMENTS}${WORKINGDIR};
 else
     echo -e "$GREEN[*] ${ORANGE}The working directory ${WORKINGDIR} already exists and will be reused.$NC";
-    sleep 0.5;
+    sleep 0.7;
 fi
 
 # Kick off scans via SSH
 for host in $(cat hosts); do
-    ssh -t $host "ip addr" & 
+    ssh -t $host "ip addr"
 done
 sleep 2;
-echo -e "$GREEN[*] ${ORANGE}Done running remote commands!.$NC";
+echo -e "$GREEN[*] ${ORANGE}Done running remote commands!$NC";
+sleep 2;

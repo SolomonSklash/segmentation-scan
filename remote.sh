@@ -104,7 +104,7 @@ echo "standalone $STANDALONE"
 
 # Create local directory for scan results. Reuse old directory if possible
 ENGAGEMENTS="/root/engagements/"
-WORKINGDIR="Segmentation_Scan_${RBU}_$(date +%Y)_$(date +%m)"
+WORKINGDIR="Segmentation_Scan_remote_${RBU}_$(date +%Y)_$(date +%m)"
 
 if [ ! -d "${ENGAGEMENTS}${WORKINGDIR}" ]; then
     echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
