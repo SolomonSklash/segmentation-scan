@@ -110,13 +110,17 @@ fi
 # Kick off scans via SSH
 for host in $(cat hosts); do
     scp ${IPLIST} root@${host}:/root
+
+    # If SCP fails, bail out
     if [ $? -ne 0 ]; then
         echo -e "$RED[*] Could not SCP IP address list to remote host ${host}. Quitting!$NC";
+        sleep 1;
         exit 1;
     else
         ssh -t $host "./remote.sh $RBU $PPS ~/${IPLIST}"
     fi
 done
+
 sleep 2;
 echo -e "$GREEN[*] ${ORANGE}Done running remote commands!$NC";
 sleep 2;
