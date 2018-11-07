@@ -34,7 +34,8 @@
     * output confirmation check (Continue? Y/n)
     * SCP/copy over IP address list name IPAddresses.txt
     * start each scan sequentially before sleeping(v2?)
-        * find way to start remote commands without blocking
+        * find way to start remote commands without blocking(v2?)
+    * find way to distinguish output from remote and local
 * sleep until scans are finished?
     * sleep until results are SCP'd back?
     * sleep for x, then loop to check for completed results?
@@ -67,6 +68,8 @@
     * ~~under /root/engagements directory~~
         * ~~Segmentation_Scan_RBUName_Year_Month~~
 * ~~look into various masscan flags/optimizations~~
+* SCP IP address list to remote hosts
+    * check return value, exit and show message if failed
 * kick off TCP scan
     * optional check for dangerous subnets (v2)
     * optional latency check (via ping?) to select best PPS (v2)

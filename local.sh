@@ -94,10 +94,6 @@ if [ ! -f $3 ]; then
     exit 1;
 fi
 
-echo "Risk Business Unit is $RBU"
-echo "Packets per second is $PPS"
-echo "IP list file is echo $IPLIST"
-
 # Create local directory for scan results. Reuse old directory if possible
 ENGAGEMENTS="/root/engagements/"
 WORKINGDIR="Segmentation_Scan_local_${RBU}_$(date +%Y)_$(date +%m)"
@@ -113,7 +109,13 @@ fi
 
 # Kick off scans via SSH
 for host in $(cat hosts); do
-    ssh -t $host "./remote.sh $RBU $PPS ~/IPList.txt"
+    scp ${IPLIST} root@${host}:/root
+    if [ $? -ne 0 ]; then
+        echo -e "$RED[*] Could not SCP IP address list to remote host ${host}. Quitting!$NC";
+        exit 1;
+    else
+        ssh -t $host "./remote.sh $RBU $PPS ~/${IPLIST}"
+    fi
 done
 sleep 2;
 echo -e "$GREEN[*] ${ORANGE}Done running remote commands!$NC";

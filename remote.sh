@@ -111,12 +111,10 @@ fi
 
 # Create output file names for logs
 TCPLOG="TCP_$(date +%H:%M:%S).log"
-echo "TCPLOG is $TCPLOG"
 UDPLOG="UDP_$(date +%H:%M:%S).log"
-echo "UDPLOG is $UDPLOG"
 
 # Create masscan commands
-# CHANGE ME TO FIS COMMANDS WHEN DONE
+# TODO: Change to FIS commands
 MASSCANTCP="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename $TCPLOG"
 MASSCANUDP="masscan --rate $PPS -v -n -pU:1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename $UDPLOG"
 MASSCANTCPPATH="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename ${ENGAGEMENTS}${WORKINGDIR}/${TCPLOG}"
