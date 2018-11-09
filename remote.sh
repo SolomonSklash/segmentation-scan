@@ -74,7 +74,9 @@ fi
 RBU=$1
 PPS=$2
 IPLIST=$3
-STANDALONE=$4
+TCPLOG=$4
+UDPLOG=$5
+STANDALONE=$6
 
 # Change spaces to underscores
 RBU=${RBU// /_}
@@ -109,10 +111,6 @@ else
     sleep 0.7;
 fi
 
-# Create output file names for logs
-TCPLOG="TCP_$(date +%H:%M:%S).log"
-UDPLOG="UDP_$(date +%H:%M:%S).log"
-
 # Create masscan commands
 # TODO: Change to FIS commands
 MASSCANTCP="masscan --rate $PPS -v -n -Pn -sS -p1-65535 -iL $IPLIST -e eth0 --output-format list --output-filename $TCPLOG"
@@ -141,20 +139,3 @@ sleep 0.7;
 $MASSCANUDPPATH
 echo -e "$GREEN[*] ${ORANGE}UDP scan complete!$NC";
 sleep 1;
-
-# Parse TCP results
-# # Get unique hosts
-# cat TCP_16:25:57.log | grep -v '#' | cut -d " " -f 4 | sort | uniq > hosts
-
-# # Get unique ports for each host in hosts, save as IPaddress.txt
-# for host in $(cat hosts); do
-#     cat TCP_16:25:57.log | grep $host | cut -d " " -f 3 | sort | uniq >> ${host}.txt
-# done
-
-# # Change newlines to ", ", echo final output to results file, remove old .txt files
-# for host in $(cat hosts); do
-#     tr '\r\n' ',' < ${host}.txt > ${host}-2.txt;
-#     sed 's/,/, /g' ${host}-2.txt > ${host}-3.txt;
-#     echo "$host [ $(cat ${host}-3.txt)]" >> results
-#     rm ${host}.txt ${host}-2.txt ${host}-3.txt
-# done

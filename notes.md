@@ -18,8 +18,7 @@
     * take PPS as argument
         * do input validation
             * ~~check that param is a number~~
-            * check valid range, i.e. 1-1000xxx
-            * add warning for PPS higher than x
+
     * ~~take IPLIST as parameter~~
         * ~~check if it exists before continuing~~
     * add option for output type?
@@ -31,10 +30,9 @@
     * ~~Segmentation_Scan_RBUName_Year_Month~~
     * ~~check if it exists~~
 * kick off scans on remote boxes
+    * ~~SCP IP address list to remote hosts~~
+        * ~~check return value, exit and show message if failed~~
     * output confirmation check (Continue? Y/n)
-    * SCP/copy over IP address list name IPAddresses.txt
-    * start each scan sequentially before sleeping(v2?)
-        * find way to start remote commands without blocking(v2?)
     * find way to distinguish output from remote and local
 * sleep until scans are finished?
     * sleep until results are SCP'd back?
@@ -44,7 +42,7 @@
 * copy results back
     * ParsedTCP_ATTACKBOXNAME_hh:mm:ss.txt
     * ParsedUDP_ATTACKBOXNAME_hh:mm:ss.txt
-* how do we know if the scan started successfully??????
+* how do we know if the scan started successfully?
     * have remote.sh monitor the status of the masscan scan
     * check return value of masscan
         * if it fails, SCP a failure file back to local machine
@@ -61,6 +59,7 @@
     * ~~add standalone parameter~~
 * ~~enable script to be run standalone or by local.sh~~
     * ~~include local.sh defensive checks~~
+    * adjust usage to account for TCPLOG and UDPLOG
 * ~~write usage()~~
 * ~~create directory structure~~
     * ~~check that directory does not currently exist~~
@@ -68,8 +67,6 @@
     * ~~under /root/engagements directory~~
         * ~~Segmentation_Scan_RBUName_Year_Month~~
 * ~~look into various masscan flags/optimizations~~
-* SCP IP address list to remote hosts
-    * check return value, exit and show message if failed
 * kick off TCP scan
     * optional check for dangerous subnets (v2)
     * optional latency check (via ping?) to select best PPS (v2)
@@ -81,6 +78,7 @@
     * ~~output results as UDP_hh:mm:ss.log~~
     * ~~indicate where logs will be stored~~
 * parse TCP results
+    * parse after each host finishes
     * account for results being empty
     * use parser.jar
     * use awk/cut
@@ -100,6 +98,11 @@
 ## Version 2
 * Python?
     * Maybe [Fabric](https://www.fabfile.org/)
+    * optional check for dangerous subnets
+* optional latency check (via ping?) to select best PPS
+* find way to start remote commands without blocking
+* check valid PPS range, i.e. 1-1000xxx
+* add warning for PPS higher than x
 
 
 ```

@@ -97,6 +97,8 @@ fi
 # Create local directory for scan results. Reuse old directory if possible
 ENGAGEMENTS="/root/engagements/"
 WORKINGDIR="Segmentation_Scan_local_${RBU}_$(date +%Y)_$(date +%m)"
+TCPLOG="TCP_$(date +%H:%M:%S).log"
+UDPLOG="UDP_$(date +%H:%M:%S).log"
 
 if [ ! -d "${ENGAGEMENTS}${WORKINGDIR}" ]; then
     echo -e "$GREEN[*] ${ORANGE}The working directory is ${ENGAGEMENTS}${WORKINGDIR}. It does not exist, so it is being created.$NC";
@@ -117,10 +119,54 @@ for host in $(cat hosts); do
         sleep 1;
         exit 1;
     else
-        ssh -t $host "./remote.sh $RBU $PPS ~/${IPLIST}"
+        ssh -t $host "./remote.sh $RBU $PPS ~/${IPLIST} ${TCPLOG} ${UDPLOG}"
+        sleep 10;
     fi
 done
 
 sleep 2;
 echo -e "$GREEN[*] ${ORANGE}Done running remote commands!$NC";
 sleep 2;
+
+# SCP results back
+WORKINGDIRREMOTE="Segmentation_Scan_remote_${RBU}_$(date +%Y)_$(date +%m)"
+
+for host in $(cat hosts); do
+    scp root@${host}:${ENGAGEMENTS=}${WORKINGDIRREMOTE}/${TCPLOG} ./${host}-${TCPLOG}
+
+    # If SCP fails, bail out
+    if [ $? -ne 0 ]; then
+        echo -e "$RED[*] Could not retrieve TCP logs from ${host}!$NC";
+        sleep 1;
+    fi
+
+    scp root@${host}:${ENGAGEMENTS=}${WORKINGDIRREMOTE}/${UDPLOG} ./${host}-${UDPLOG}
+
+    # If SCP fails, bail out
+    if [ $? -ne 0 ]; then
+        echo -e "$RED[*] Could not retrieve UDP logs from ${host}!$NC";
+        sleep 1;
+    fi
+done
+
+# # Parse TCP results
+# # Get unique hosts
+# cat ${ENGAGEMENTS}${WORKINGDIR}/${UDPLOG} | grep -v '#' | cut -d " " -f 4 | sort | uniq > hosts
+# echo -e "$GREEN[*] ${ORANGE}Hosts found:$NC";
+# cat hosts;
+# sleep 1;
+
+# # Get unique ports for each host in hosts, save as IPaddress.txt
+# for host in $(cat hosts); do
+#     cat ${ENGAGEMENTS}${WORKINGDIR}/${UDPLOG} | grep $host | cut -d " " -f 3 | sort | uniq >> ${host}.txt
+#     cat ${host}.txt;
+#     sleep 1;
+# done
+
+# # Change newlines to ", ", echo final output to results file, remove old .txt files
+# for host in $(cat hosts); do
+#     tr '\r\n' ',' < ${host}.txt > ${host}-2.txt;
+#     sed 's/,/, /g' ${host}-2.txt > ${host}-3.txt;
+#     echo "$host [ $(cat ${host}-3.txt)]" >> results
+#     rm ${host}.txt ${host}-2.txt ${host}-3.txt
+# done
